@@ -68,91 +68,148 @@
 }
 
 .floating-nav.scrolled {
-  background: rgba(30, 10, 60, 0.6);
+  background: rgba(30, 10, 60, 0.8);
   box-shadow: 
     0 8px 30px rgba(0, 0, 0, 0.2),
     0 0 0 1px rgba(255, 255, 255, 0.1) inset;
   transform: translateY(4px);
 }
 
+/* Enhanced card hover effects */
 .tech-card {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-style: preserve-3d;
-  perspective: 1000px;
-  height: 100%;
-}
-
-.tech-card:hover {
-  transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+  @apply relative overflow-hidden transition-all duration-300 ease-out transform;
 }
 
 .tech-card::before {
   content: '';
-  position: absolute;
-  inset: -2px;
-  background: linear-gradient(45deg, 
-    rgba(139, 92, 246, 0.5),
-    rgba(99, 102, 241, 0.5)
-  );
-  border-radius: 1rem;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  @apply absolute inset-0 bg-gradient-to-r from-purple-600/20 to-indigo-600/20 opacity-0 transition-opacity duration-300;
+  border-radius: inherit;
 }
 
 .tech-card:hover::before {
-  opacity: 1;
+  @apply opacity-100;
 }
 
-.tech-card > div {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 100%;
+.tech-card:hover {
+  @apply -translate-y-2;
 }
 
-.tech-card:hover > div {
-  box-shadow: 
-    0 20px 40px rgba(139, 92, 246, 0.3),
-    0 0 0 1px rgba(139, 92, 246, 0.2) inset;
+.tech-card:hover .tech-icon {
+  @apply scale-110 rotate-12;
 }
 
-.floating-element {
-  animation: float 6s ease-in-out infinite;
+.tech-icon {
+  @apply transition-all duration-300 ease-out;
 }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
+/* Build cards enhanced design */
 .build-card {
-  transition: all 0.3s ease;
-  height: 100%;
+  @apply relative transition-all duration-500 ease-out;
+}
+
+.build-card::before {
+  content: '';
+  @apply absolute inset-0 bg-gradient-to-br from-purple-600/30 to-indigo-600/30 opacity-0 transition-opacity duration-300 rounded-2xl -z-10;
+}
+
+.build-card:hover::before {
+  @apply opacity-100;
 }
 
 .build-card:hover {
-  transform: translateY(-8px);
+  @apply -translate-y-3;
 }
 
-.build-card img {
-  transition: transform 0.5s ease;
+.build-card:hover .spec-icon {
+  @apply text-purple-400 rotate-12 scale-110;
 }
 
-/* Mobile responsiveness */
+.spec-icon {
+  @apply transition-all duration-300 ease-out;
+}
+
+.build-card .image-container {
+  @apply overflow-hidden rounded-t-2xl;
+}
+
+.build-card:hover .image-container img {
+  @apply scale-110 brightness-110;
+}
+
+.build-card .image-container img {
+  @apply transition-all duration-500 ease-out;
+}
+
+/* Mobile optimizations */
 @media (max-width: 768px) {
-  .floating-nav {
-    background: rgba(30, 10, 60, 0.8);
-  }
-  
   .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    @apply px-4;
   }
-  
-  .grid {
-    grid-template-columns: 1fr;
+
+  h1.shine-effect {
+    @apply text-4xl;
   }
+
+  .process-card {
+    @apply p-6;
+  }
+
+  .build-card {
+    @apply mx-auto max-w-sm;
+  }
+
+  .spec-list {
+    @apply grid grid-cols-2 gap-2;
+  }
+
+  .spec-item {
+    @apply text-sm;
+  }
+}
+
+@media (max-width: 640px) {
+  .spec-list {
+    @apply grid-cols-1;
+  }
+
+  .build-card .price {
+    @apply text-base;
+  }
+
+  .build-card h3 {
+    @apply text-xl;
+  }
+}
+
+/* Enhanced text readability */
+p {
+  @apply leading-relaxed;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Better focus styles */
+:focus {
+  @apply outline-none ring-2 ring-purple-500 ring-opacity-50;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(30, 10, 60, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.3);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.5);
 }
